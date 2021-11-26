@@ -12,6 +12,10 @@ target 'SmartKnockApp' do
     :hermes_enabled => false
   )
 
+  pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-async-storage/async-storage'
+
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
   target 'SmartKnockAppTests' do
     inherit! :complete
     # Pods for testing

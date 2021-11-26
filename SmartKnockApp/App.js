@@ -24,6 +24,9 @@ import {
 
 import BLEScan from './components/BLEScan.js';
 import BLEConnect from './components/BLEConnect.js';
+import Home from './components/Home.js';
+import LockDetails from './components/LockDetails.js';
+import AddLock from './components/AddLock.js';
 
 
 const Colors = {
@@ -53,8 +56,9 @@ const App: () => Node = () => {
     <NavigationContainer>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
       <Stack.Navigator>
-        <Stack.Screen name="BLEScan" component={BLEScan} />
-        <Stack.Screen name="BLEConnect" component={BLEConnect} />
+        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="LockDetails" component={LockDetails} />
+        <Stack.Screen name="AddLock" component={AddLock} />
       </Stack.Navigator>
     </NavigationContainer>
   );
