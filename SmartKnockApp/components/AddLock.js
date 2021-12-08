@@ -3,7 +3,7 @@
 
 import React, { Component } from 'react';
 import { BleManager } from 'react-native-ble-plx';
-import { ListItem } from 'react-native-elements';
+import { ListItem, Input, Button } from 'react-native-elements';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {
     View,
@@ -137,98 +137,75 @@ class Form extends Component {
             <View style={
                 {
                     flex: 1,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    backgroundColor: '#999'
+                    margin: 10,
                 }
             }>
-                <Text>Mac: {this.state.macAddress}</Text>
-                <Text style={
+                {/* <Text>Mac: {this.state.macAddress}</Text> */}
+                {/* <Text style={
                     {
                         fontSize: 20,
                         marginBottom: 20,
                     }
                 }>
                     {this.state.device.name}
-                </Text>
-                <Text>
-                    Name
-                </Text>
-                <TextInput
+                </Text> */}
+                <Input
+                    label='Name'
+                    placeholder=''
                     style={
                         {
                             height: 40,
                             width: '100%',
-                            borderColor: 'gray',
-                            borderWidth: 1,
                         }
                     }
                     onChangeText={(text) => this.setState({ name: text })}
                     value={this.state.name}
                 />
-                <Text>
-                    Passphrase
-                </Text>
-                <TextInput
+               <Input
+                    label='Passphrase'
+                    placeholder=''
                     style={
                         {
                             height: 40,
                             width: '100%',
-                            borderColor: 'gray',
-                            borderWidth: 1,
                         }
                     }
                     onChangeText={(text) => this.setState({ passphrase: text })}
                     value={this.state.passphrase}
                 />
-                <Text>
-                    SSID
-                </Text>
-                <TextInput
+
+                <Input 
+                    label='WiFi SSID'
+                    placeholder=''
                     style={
                         {
                             height: 40,
                             width: '100%',
-                            borderColor: 'gray',
-                            borderWidth: 1,
                         }
                     }
                     onChangeText={(text) => this.setState({ ssid: text })}
                     value={this.state.ssid}
                 />
-                <Text>
-                    Password
-                </Text>
-                <TextInput
+                <Input
+                    label='WiFi Password'
+                    placeholder=''
                     style={
                         {
                             height: 40,
                             width: '100%',
-                            borderColor: 'gray',
-                            borderWidth: 1,
                         }
                     }
                     onChangeText={(text) => this.setState({ password: text })}
                     value={this.state.password}
                 />
-                <Text>
-                    {JSON.stringify(this.state.error)}
-                </Text>
-                <Text
-                    style={
-                        {
-                            fontSize: 20,
-                            marginTop: 20,
-                        }
-                    }
-                    onPress={() => this.addLock()}
-                >
-                    Add Lock
-                </Text>
+                <Text style={{ color: 'red' }}>{this.state.error ? JSON.stringify(this.state.error) : ""}</Text>
+                <Button
+                    title='Add'
+                    onPress={this.addLock.bind(this)}
+                />
             </View>
         );
     }
-
     async addLock() {
         if (this.state.passphrase === '' || this.state.ssid === '' || this.state.password === '') {
             this.setState({ error: 'Please fill in all fields' });

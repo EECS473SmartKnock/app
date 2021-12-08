@@ -10,6 +10,8 @@ import React, { useState } from 'react';
 import type { Node } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { ThemeProvider } from 'react-native-elements';
+import { withTheme } from 'react-native-elements';
 
 import {
   SafeAreaView,
@@ -44,6 +46,7 @@ const Stack = createNativeStackNavigator();
 
 const App: () => Node = () => {
   const isDarkMode = useColorScheme() === 'dark';
+  isDarkMode ? console.log('Dark Mode') : console.log('Light Mode');
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
@@ -57,9 +60,10 @@ const App: () => Node = () => {
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
       <Stack.Navigator>
         <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="LockDetails" component={LockDetails} />
+        <Stack.Screen name="LockDetails" component={LockDetails} title="hi" />
         <Stack.Screen name="AddLock" component={AddLock} />
       </Stack.Navigator>
+      <ThemeProvider useDark={isDarkMode}></ThemeProvider>
     </NavigationContainer>
   );
 };
@@ -83,4 +87,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default App;
+export default withTheme(App);

@@ -13,9 +13,10 @@ import {
 
 import { FAB, Divider, ListItem } from 'react-native-elements';
 import TouchableScale from 'react-native-touchable-scale';
+import { withTheme, ThemeProvider } from 'react-native-elements';
 
 
-export default class Home extends Component {
+class Home extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -66,12 +67,28 @@ export default class Home extends Component {
         // this.setState({ deviceList });
     }
 
+    deleteItem = (index) => {
+        let deviceList = this.state.deviceList;
+        deviceList.splice(index, 1);
+        this.setState({ deviceList });
+        AsyncStorage.setItem('deviceList', JSON.stringify(deviceList));
+    }
+
     render() {
         let list = this.state.deviceList.map((item, index) => {
 
             return (
 
-                <ListItem key={index}
+                <ListItem.Swipeable key={index}
+                    rightContent={
+                        <Button
+                            title="Delete"
+                            icon={{ name: 'delete', color: 'white' }}
+                            buttonStyle={{ minHeight: '100%', backgroundColor: 'red' }}
+                            onPress={() => {
+                                this.deleteItem(index);
+                            }}
+                        />}
                     Component={TouchableScale}
                     friction={30} //
                     tension={300} // These props are passed to the parent component (here TouchableScale)
@@ -87,7 +104,7 @@ export default class Home extends Component {
 
                     </ListItem.Content>
                     <ListItem.Chevron />
-                </ListItem >
+                </ListItem.Swipeable >
 
             )
         });
@@ -101,7 +118,9 @@ export default class Home extends Component {
                 <FAB title="Setup new lock" onPress={() => {
                     this.props.navigation.navigate('AddLock');
                 }}></FAB>
+                  <ThemeProvider useDark={true} />
             </View>
+            
         );
     }
 }
@@ -125,3 +144,5 @@ const styles = StyleSheet.create({
         width: '100%',
     }
 });
+
+export default withTheme(Home);
